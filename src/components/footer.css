@@ -1,12 +1,12 @@
 .footer {
-    background-color: aquamarine;
-    border-top: 1px solid #6a6a6a;
+    background-color: rgb(212, 221, 221);
+    border-top: 1px solid #d2d0d0;
     padding: 15px 10px 40px 10px;
     text-align: center;
 }
 
 .footer label {
-    color: blue;
+    color: #4c5155;
     text-decoration: underline;
     text-align: center;
 }

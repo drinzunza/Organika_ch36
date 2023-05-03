@@ -1,36 +1,57 @@
+import DataContext from '../state/dataContext';
 import './product.css';
 import QuantityPicker from './quantityPicker';
-import { useEffect } from 'react';
+import { useEffect, useState, useContext } from 'react';
 //import the UseEffect and create the hook, please
 
 function Product(props) {
-    
-    useEffect(function(){
-        //when the component load
-        console.log("hello, i'm a product");
-         
-        
-    },[]);
+  const [quantity, setQuantity] = useState(1);
+  const globalAdd = useContext(DataContext).addProductToCart;
 
-    return (
-        <div className="product">
+  useEffect(function () {
+    //when the component load
+    console.log("hello, i'm a product");
+  }, []);
 
-            <img src={"/images/"+props.data.image} alt="" />
+  function handleQuanty(qnty) {    
+    setQuantity(qnty);
+  }
 
-            <h5>{props.data.title}</h5>
+  function getTotal() {
+    let total = props.data.price * quantity;
+    return total.toFixed(2);
+  }
 
-            <div className="prices">    
-                <label>Total {props.data.price.toFixed(2)}</label>
-                <label>Price {props.data.price.toFixed(2)}</label>
-            </div>
-            <QuantityPicker />
-            <button>Add</button>
+  function handleAdd(){
+    console.log("adding", props.data.title);
+    globalAdd(props.data);
+  }
 
-        </div>
-    )
+  return (
+    <div className="product">
+      <img src={'/images/' + props.data.image} alt="" />
 
+      <h5>{props.data.title}</h5>
+
+      <div className="prices">
+        <label>Total <span className='total'>${getTotal()}</span></label>
+        <label>Price <span className='price'>${props.data.price.toFixed(2)}</span></label>
+      </div>
+
+      <div className="controls">
+        <QuantityPicker onQuantiyChange={handleQuanty} />
+        <button onClick={handleAdd} className="btn btn-sm btn-success">Add</button>
+      </div>
+    </div>
+  );
 }
 export default Product;
 
-//Render the product in the Catalog 5 times
-//Render the price and the total from each product and add the button to add products
+/**
+ * create a quantity state variable
+ * when the quantity changes, update the state variable
+ * 
+ * use the state variable to calculate the total
+ * 
+ * 
+ */

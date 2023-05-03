@@ -3,6 +3,10 @@ import './admin.css';
 
 function Admin() {
   const [product, setProduct] = useState({});
+  const [allProducts, setAllProducts] = useState([]);
+
+  const [coupon, setCoupon] = useState({});
+  const [allCoupons, setAllCoupons] = useState([]);
 
   function handleProductText(e) {
     const text = e.target.value;
@@ -16,7 +20,31 @@ function Admin() {
 
   function saveProduct() {
     console.log(product);
+
+    // create copy, modify the copy, set the copy back
+    let copy = [...allProducts];
+    copy.push(product);
+    setAllProducts(copy);
   }
+
+
+  const handleCouponText = (e) => {
+    const value = e.target.value;
+    const name = e.target.name;
+
+    let copy = {...coupon};
+    copy[name] = value;
+    setCoupon(copy);
+  }
+
+  const saveCoupon = () => {
+      console.log(coupon);
+
+      let copy = [...allCoupons];
+      copy.push(coupon);
+      setAllCoupons(copy);
+  }
+
 
   // test
   return (
@@ -52,10 +80,36 @@ function Admin() {
               Save Product
             </button>
           </div>
+
+
+          <ul className="prod-list">
+            {allProducts.map(prod => <li key={prod.title}>{prod.title}</li>)}
+          </ul>
+
         </section>
 
         <section id="secCoupons">
           <h4>Create Coupons</h4>
+
+          <div className="mb-3">
+            <label className="form-label">Code</label>
+            <input type="text" name="code" onBlur={handleCouponText} className="form-control" />
+          </div>
+
+          <div className="mb-3">
+            <label className="form-label">Discount</label>
+            <input type="number" name="discount" onBlur={handleCouponText} className="form-control" />
+          </div>
+
+          <div className="mb-3 text-center">
+            <button onClick={saveCoupon} className="btn btn-sm btn-outline-dark">
+              Save Coupon
+            </button>
+          </div>
+
+          <ul className="coupon-list">
+            {allCoupons.map(c => <li key={c.code}>{c.code} - {c.discount}</li>)}
+          </ul>
         </section>
       </div>
     </div>

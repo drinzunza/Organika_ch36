@@ -1,4 +1,10 @@
 .catalog {
-    background-color: rgb(243, 245, 244);
+    background-color: whitesmoke;
     height: 100%;
+}
+
+.catalog .btn-filter {
+    margin-left: 10px;
+    margin-bottom: 5px;
+    margin-top:10px;
 }

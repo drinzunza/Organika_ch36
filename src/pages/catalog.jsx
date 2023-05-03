@@ -43,7 +43,7 @@ const Catalog = () => {
       <h5> We have {products.length} products for you!!</h5>
 
       {category.map((c) => (
-        <button key={c} onClick={() => filter(c)} className="btn btn-sm btn-primary btn-filter">
+        <button key={c} onClick={() => filter(c)} className="btn btn-sm btn-outline-success btn-filter">
           {c}
         </button>
       ))}

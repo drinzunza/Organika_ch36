@@ -1,0 +1,64 @@
+import { useState } from 'react';
+import './shoppingList.css';
+import ShoppingListItem from '../components/shoppingListItem';
+
+const ShoppingList = () => {
+  const [item, setItem] = useState({});
+  const [allItems, setAllItems] = useState([]);
+
+  const handleTextChange = (e) => {
+    let value = e.target.value;
+    let name = e.target.name;
+
+    let copy = {...item};
+    copy[name] = value;
+    setItem(copy);
+  };
+
+  const addItem = () => {
+    console.log(item);
+
+    let copy = [...allItems];
+    copy.push(item);
+    setAllItems(copy);
+  };
+
+  function handleDelete(item) {
+    // console.log("deleting", item);
+
+    // using filter to remove (filter out) an element from the list
+    let copy = allItems.filter(x => x.name != item.name);
+    setAllItems(copy);
+  }
+
+  return (
+    <div className="shopping-list">
+      <h1>My Shopping List</h1>
+
+      <div className="form">
+        <input type="text" name="name" onBlur={handleTextChange} />
+        <button className='btn btn-sm btn-outline-dark' onClick={addItem}>Add Item</button>
+      </div>
+
+      <div className='list'>
+        {allItems.map(item => <ShoppingListItem key={item.name} data={item} onDelete={handleDelete} />)}
+      </div>
+    </div>
+  );
+};
+
+export default ShoppingList;
+
+
+/**
+ * 
+ * crate a ShoppingListItem component
+ * 
+ * render every list item in the new component
+ * send the text as data to the component
+ * 
+ * component will receive the props
+ * and render the props.data on h5/p/label
+ * 
+ * 
+ */
